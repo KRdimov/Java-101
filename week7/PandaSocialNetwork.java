@@ -1,13 +1,11 @@
 package week7;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-import java.util.Stack;
 
 public class PandaSocialNetwork implements IPandaSocialNetwork {
 	private List<Panda> pandaNetwork;
@@ -45,7 +43,7 @@ public class PandaSocialNetwork implements IPandaSocialNetwork {
 	public List<Panda> friendsOf(Panda panda) {
 		return new ArrayList<Panda>(panda.getFriends());
 	}
-
+	
 	@Override
 	public int connectionLevel(Panda panda1, Panda panda2) {
 		int level = 0;
@@ -70,23 +68,6 @@ public class PandaSocialNetwork implements IPandaSocialNetwork {
 		}
 		return connectionFound ? level : -1;
 	}
-	
-	private Panda goToLevel(Panda panda, int level) {
-		int reachedLevel = 0;
-		Stack<Panda> pandaStack = new Stack<>();
-		pandaStack.push(panda);
-		Panda p1 = null;
-		while(!pandaStack.isEmpty()) {
-			p1 = pandaStack.pop();
-			reachedLevel++;
-			if(reachedLevel == level) 
-				break;
-			else
-				pandaStack.push(p1.getFriends().iterator().next());
-			
-		}
-		return p1;
-	}
 
 	@Override
 	public boolean areConnected(Panda panda1, Panda panda2) {
@@ -96,25 +77,29 @@ public class PandaSocialNetwork implements IPandaSocialNetwork {
 	@Override
 	public int howManyGenderInNetwork(int level, Panda panda, String gender) {
 		int count = 0;
-		Panda p1 = goToLevel(panda, level);
+		int currentLevel = 0;
+		//Panda p1 = goToLevel(panda, level);
 		Queue<Panda> pandaQueue = new LinkedList<>();
-		pandaQueue.add(p1);
+		pandaQueue.add(panda);
 		Set<Panda> alreadyChecked = new HashSet<>();
 		while(!pandaQueue.isEmpty()) {
+			currentLevel++;
 			Panda p = pandaQueue.poll();
 			for (Panda f : p.getFriends()) {
-				alreadyChecked.add(f);
 				if(f.getGender() == gender) {
 					count++;
 				}
-				if(!alreadyChecked.contains(f))
+				if(!alreadyChecked.contains(f)) {
 					pandaQueue.add(f);
+					alreadyChecked.add(f);
+				}
 			}
+			if(currentLevel == level)
+				break;
 		}
 		return count;
 	}
 
-	//TODO Frog Game!!
 	@Override
 	public void save(String fileName) {
 		//TODO

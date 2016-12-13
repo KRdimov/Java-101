@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class GameOfLife {
 	private static Grid grid;
-//	public static void main(String[] args) throws InterruptedException {
-//		initializeGame();
-//		startGame();
-//	}
+	public static void main(String[] args) throws InterruptedException {
+		initializeGame();
+		startGame();
+	}
 
 	private static void startGame() throws InterruptedException {
 		while(true) {
