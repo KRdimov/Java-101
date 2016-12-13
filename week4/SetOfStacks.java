@@ -2,7 +2,7 @@ package week4;
 
 import java.util.ArrayList;
 
-import week3improve.MySinglyLinkedList;
+import week3_code_improvement.MySinglyLinkedList;
 
 public class SetOfStacks {
 	public ArrayList<MyStackInterface<Integer>> stacks;

@@ -1,6 +1,6 @@
 package week4;
 
-import week3improve.MySinglyLinkedList;
+import week3_code_improvement.MySinglyLinkedList;
 
 public class MyStack implements MyStackInterface<Integer> {
 	MyStackInterface<Integer> s;
