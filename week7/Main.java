@@ -3,7 +3,7 @@ package week7;
 public class Main {
 
 	public static void main(String[] args) {
-		testWithExample1();  // expected output met
+		//testWithExample1();
 		testWithExample2(); // expected output met
 	}
 	
@@ -34,10 +34,10 @@ public class Main {
 		network.makeFriends(p4, p7);
 		network.makeFriends(p7, p1);
 		
-		boolean b1 = network.connectionLevel(p1, p7) == 1; 
-		boolean b2 = network.connectionLevel(p1, p4) == 2 ; 
-		boolean b3 = network.connectionLevel(p2, p4) == 3 ; 
-		boolean b4 = network.howManyGenderInNetwork(1, p1, "female") == 1;
+		boolean b1 = network.connectionLevelNew(p1, p7) == 1;
+		boolean b2 = network.connectionLevelNew(p1, p4) == 2 ;
+		boolean b3 = network.connectionLevelNew(p4, p2) == 4 ;
+		boolean b4 = network.howManyGenderInNetwork(2, p1, "female") == 3;
 		boolean b5 = network.howManyGenderInNetwork(2, p3, "male") == 4;
 		boolean b6 = network.howManyGenderInNetwork(2, p1, "female") == 3;
 		

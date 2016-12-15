@@ -1,11 +1,13 @@
 package week7;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 public class PandaSocialNetwork implements IPandaSocialNetwork {
 	private List<Panda> pandaNetwork;
@@ -67,6 +69,44 @@ public class PandaSocialNetwork implements IPandaSocialNetwork {
 				break;
 		}
 		return connectionFound ? level : -1;
+	}
+	
+	public int connectionLevelNew(Panda panda1, Panda panda2) {
+		if(panda1.equals(panda2)){
+			return 0;
+		}
+
+		int depth = 1;
+		int elementsToDepthIncrease = 0;
+		Queue<Panda> pandaQueue = new LinkedList<>();
+		boolean targetReached = false;
+		pandaQueue.add(panda1);
+		List<Integer> depths = new ArrayList<>();
+		Set<Panda> alreadyChecked = new HashSet<>();
+		alreadyChecked.add(panda1);
+		
+		while(!pandaQueue.isEmpty()) {
+			Panda p = pandaQueue.poll();
+			if(elementsToDepthIncrease == 0) {
+				elementsToDepthIncrease += p.getFriends().size();
+				depth++;
+			}
+			for (Panda friend : p.getFriends()) {
+				if(!alreadyChecked.contains(friend)) {
+					if(panda2.equals(friend)) {
+						targetReached = true;
+					}
+					pandaQueue.add(friend);
+					alreadyChecked.add(friend);
+				}
+			}
+			if(targetReached) {
+				depths.add(depth);
+				targetReached = false;
+			}
+			elementsToDepthIncrease--;
+		}
+		return Collections.min(depths);
 	}
 
 	@Override
