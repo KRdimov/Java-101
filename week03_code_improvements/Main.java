@@ -13,9 +13,15 @@ public class Main {
 		ints.add(10, 3);
 		ints.addFirst(-1);
 		
-		int k = 0;
 		System.out.println(ints);
-		System.out.println(ints.getKthFromLast(k));
+		System.out.println(ints.kthToLast(8));
+		ints.remove(7);
+		System.out.println(ints);
+		ints.partitionList(2);
+		System.out.println(ints);
+		System.out.println("--------------");
+		System.out.println(ints.getFirstCommonElement());
+		System.out.println(ints.checkIfListHasLoop());
 		
 	}
 }
