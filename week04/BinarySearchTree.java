@@ -64,17 +64,6 @@ public class BinarySearchTree {
 		return tempArr;
 	}
 
-//	public boolean find(Integer element) {
-//		return contains(root, element, false);
-//	}
-//	
-//	private boolean contains(Node node, Integer element, boolean found) {
-//		if(element.compareTo(node.element) == 0)
-//			return true;
-//		else if()
-//		return false;
-//	}
-	
 	public boolean equal(BinarySearchTree otherTree) {
 		return compare(root, otherTree.root);
 	}
@@ -102,6 +91,4 @@ public class BinarySearchTree {
 		}
 		return subTLeftEqual && subTRightEqual;
 	}
-
-	
 }

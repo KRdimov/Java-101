@@ -109,7 +109,7 @@ MyStackInterface<T>, MyQueueInterface<T>{
 			System.out.println("Index out of bounds");
 			return;
 		}
-		if(index != size - 1) {
+		if(index != size - 1 || index == 0) {
 			Node toBeDeleted = getIndexNode(index);
 			delete(toBeDeleted);
 		} else {
@@ -175,9 +175,13 @@ MyStackInterface<T>, MyQueueInterface<T>{
 	 */
 	private void delete(Node node) {
 		Node temp = node.next;
-		node.next = temp.next;
-		node.element = temp.element;
-		temp = null;
+		if(temp == null) {
+			head = new Node();
+		} else {
+			node.next = temp.next;
+			node.element = temp.element;
+			temp = null;
+		}
 	}
 	
 	/**
