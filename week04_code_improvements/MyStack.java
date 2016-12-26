@@ -5,14 +5,33 @@ import week04.MyStackInterface;
 
 public class MyStack<T extends Comparable<T>> implements MyStackInterface<T>{
 	private MyStackInterface<T> elements;
+	private MyStackInterface<T> minElementHolder;
 	
 	public MyStack() {
 		elements = new MySinglyLinkedList<>();
+		minElementHolder = new MySinglyLinkedList<>();
 	}
 	
 	@Override
 	public void push(T element) {
 		elements.push(element);
+		insertMinElement(element);
+	}
+
+	private void insertMinElement(T element) {
+		if(minElementHolder.getSize() == 0) {
+			minElementHolder.push(element);
+		} else {
+			if(element.compareTo(minElementHolder.peek()) < 0) {
+				minElementHolder.push(element);
+			} else {
+				minElementHolder.push(minElementHolder.peek());
+			}
+		}
+	}
+	
+	public T min() {
+		return minElementHolder.peek();
 	}
 
 	@Override
@@ -22,6 +41,7 @@ public class MyStack<T extends Comparable<T>> implements MyStackInterface<T>{
 
 	@Override
 	public T pop() {
+		minElementHolder.pop();
 		return elements.pop();
 	}
 
