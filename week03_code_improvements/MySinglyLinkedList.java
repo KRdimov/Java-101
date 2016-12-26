@@ -349,11 +349,33 @@ MyStackInterface<T>, MyQueueInterface<T>{
 		listOne.tail = listOne.head.next.next.next.next;
 	}
 	
+	/**
+	 * Finds the element where the loop starts
+	 * O(n) complexity
+	 * @return element where the loop starts or null
+	 */
 	public T getFirstLoopElement() {
+		T element = null;
 		if(checkIfListHasLoop()) {
-			//TODO
-		} 
-		return null;
+			Node h1 = listOne.head;
+			Node h2 = listOne.head;
+			int equalsCounter = 0;
+			
+			while(true) {
+				h1 = h1.next;
+				h2 = h2.next.next;
+				if(h1.equals(h2)) {
+					equalsCounter++;
+					if(equalsCounter == 1) {
+						h1 = listOne.head;
+					} else if(equalsCounter == 2) {
+						element = h1.element;
+						break;
+					}
+				}
+			}
+		}
+		return element;
 	}
 	
 	/**

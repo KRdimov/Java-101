@@ -22,6 +22,6 @@ public class Main {
 		System.out.println("--------------");
 		System.out.println(ints.getFirstCommonElement());
 		System.out.println(ints.checkIfListHasLoop());
-		
+		System.out.println(ints.getFirstLoopElement());
 	}
 }
