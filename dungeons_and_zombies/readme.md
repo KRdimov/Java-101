@@ -4,10 +4,8 @@ The task details can be found [here](https://github.com/HackBulgaria/Programming
 
 > Note: Things left to finish:
 
-> 1. fighting through a wall bug
+> 1. fighting with both weapon and spell optimization
 
-> 2. fighting with both weapon and spell optimization
+> 2. game ending logic finishing
 
-> 3. game ending logic finishing
-
-> 4. code refactoring and optimizing
+> 3. code refactoring and optimizing
