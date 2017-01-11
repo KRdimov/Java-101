@@ -31,7 +31,7 @@ public class MySQLHelper {
 		return false;
 	}
 	
-	public List<List<String>> selectFrom(String table) { 
+	public List<List<String>> selectFrom(String table) {
 		return selectFrom(table, "1");
 	}
 
