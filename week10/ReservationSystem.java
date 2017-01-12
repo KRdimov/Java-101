@@ -18,12 +18,27 @@ public class ReservationSystem {
 		String cm;
 		do {
 			cm = scanner.nextLine();
-			Command command = commands.get(cm);
+			Command command = parseCommand(cm);
 			if(command == null) {
 				command = commands.get("help");
+				command.run();
+				continue;
 			}
+			String[] args = getArguments(cm);
+			
+			
 			command.run();
 		} while (!cm.equals("exit"));
+	}
+
+	private static Command parseCommand(String cm) {
+		for (Map.Entry<String, Command> command : commands.entrySet()) {
+			String strCmd = command.getKey();
+			if(cm.contains(strCmd)) {
+				return command.getValue();
+			}
+		}
+		return null;
 	}
 
 	private static void init() {
@@ -35,8 +50,9 @@ public class ReservationSystem {
 
 	private static void fillCommands() {
 		commands.put("exit",  new Command() {
-			
-            public void run() {
+
+			@Override
+            public void run(String... i) {
             	System.out.println("Bye!");
             }
             
@@ -46,8 +62,9 @@ public class ReservationSystem {
         });
 		
 		commands.put("help", new Command() {
-			
-            public void run() {
+
+			@Override
+            public void run(String... i) {
             	for (Map.Entry<String, Command> command : commands.entrySet()) {
 					System.out.println(command.getKey() + " - " + command.getValue().showDescription());
 				}
@@ -59,11 +76,25 @@ public class ReservationSystem {
         });
 		
 		commands.put("show movies", new Command() {
-			
-            public void run() {
+
+			@Override
+            public void run(String... i) {
             	System.out.println(db.selectFrom("Movies", "rating", false));
             }
             
+            public String showDescription() {
+            	return "prints all movies ordered by rating";
+            }
+        });
+		
+		commands.put("show movie projections", new Command() {
+
+			@Override
+            public void run(String...args) {
+            	System.out.println(db.selectFrom("Movies", "rating", false));
+            }
+
+			@Override
             public String showDescription() {
             	return "prints all movies ordered by rating";
             }
