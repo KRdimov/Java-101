@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="cinema_reservation_system.Reservation" table="Reservation">
+      <meta attribute="class-description">
+         This class contains the reservation detail. 
+      </meta>
+      <id name="id" type="int" column="id">
+         <generator class="native"/>
+      </id>
+      <property name="username" column="username" type="string"/>
+      <property name="projection_id" column="projection_id" type="int"/>
+      <property name="row" column="row" type="int"/>
+      <property name="col" column="col" type="int"/>
+   </class>
+</hibernate-mapping>
