@@ -1,4 +1,4 @@
-package week10;
+	package week10;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -30,12 +30,13 @@ public class DataBase {
 			    columns.append(column + ",");
 			    values.append(value + ",");
 			}
-			columns.deleteCharAt(sql.length() - 1);
-			values.deleteCharAt(sql.length() - 1);
+			columns.deleteCharAt(columns.length() - 1);
+			values.deleteCharAt(values.length() - 1);
 			columns.append(")");
 			values.append(")");
 			sql.append(columns + " VALUES " + values);
-			stmt.executeQuery(sql.toString());
+			sql.append(";");
+			stmt.executeUpdate(sql.toString());
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,37 +44,45 @@ public class DataBase {
 		return false;
 	}
 	
-	public boolean update(String table, Map<String, String> columnValue, int id) {
-		try {
-			stmt = conn.createStatement();
-			StringBuilder sql;
-			sql = new StringBuilder("UPDATE " +  table + " SET ");
-			for(Map.Entry<String, String> entry : columnValue.entrySet()) {
-			    String column = entry.getKey();
-			    String value = entry.getValue();
-			    sql.append(column + "=" + value + ",");
-			}
-			sql.deleteCharAt(sql.length() - 1);
-			sql.append("WHERE id=" + id);
-			stmt.executeQuery(sql.toString());
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
-	public boolean deleteFrom(String table, int id) {
+	public boolean deleteFrom(String table, String username) {
 		try {
 			stmt = conn.createStatement();
 			String sql;
-			sql = "DELETE FROM " +  table + " WHERE id=" + id;
-			stmt.executeQuery(sql);
+			sql = "DELETE FROM " +  table + " WHERE username='" + username + "'";
+			sql += ";";
+			stmt.executeUpdate(sql);
 			return true;
 		} catch (SQLException e) {
+			System.out.println("Unable to delete, no reservation with username: " + username + " found.");
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public List<List<String>> selectFrom(String table) {
+		try {
+			List<List<String>> result = new LinkedList<>();
+			stmt = conn.createStatement();
+			String sql;
+			sql = "SELECT * FROM " + table;
+			sql += ";";
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				ResultSetMetaData rsmd = rs.getMetaData();
+				int columns = rs.getMetaData().getColumnCount();
+				List<String> row = new LinkedList<>();
+				for (int i = 1; i <= columns; i++) {
+					String columnName = rsmd.getColumnName(i);
+					row.add(rs.getString(columnName));
+				}
+				result.add(row);
+			}
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public List<List<String>> selectFrom(String table, String orderBy, boolean ascendingOrder) {
@@ -85,6 +94,8 @@ public class DataBase {
 			if(!ascendingOrder) {
 				sql += " DESC"; 
 			}
+
+			sql += ";";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
@@ -113,6 +124,7 @@ public class DataBase {
 			if(!ascendingOrder) {
 				sql += " DESC"; 
 			}
+			sql += ";";
 			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
