@@ -8,11 +8,19 @@ import java.net.URL;
 public class URLReader {
 	private String url;
 	
-	public URLReader(String city) {
-		url = "http://api.openweathermap.org/data/2.5/weather?q="+ city + "&appid=9ed81d9300f326bbd3f1ef06bb0f1207";
+	public URLReader() {
+		url = null;
 	}
 	
-	public String getResponse() throws Exception {	
+	public void setWeatherURL(String city) {
+		url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=9ed81d9300f326bbd3f1ef06bb0f1207";
+	}
+	
+	public void setPageURL(String url) {
+		this.url = url;
+	}
+	
+	public String getResponse() throws Exception {
 		URL weatherUrl = new URL(url);
 		BufferedReader in = new BufferedReader(new InputStreamReader(weatherUrl.openStream()));
 		return bufferedReaderToString(in);

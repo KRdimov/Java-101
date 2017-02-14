@@ -10,7 +10,11 @@ public class WeatherApp {
 
 	public static void main(String[] args) throws Exception {
 		Scanner sc = new Scanner(System.in);
-		URLReader urlReader = new URLReader(sc.nextLine()); 
+		String userInput = sc.nextLine();
+		
+		URLReader urlReader = new URLReader();
+		urlReader.setWeatherURL(userInput);
+		
 		String weatherAppInfo = urlReader.getResponse();
 		System.out.println(getInfo(weatherAppInfo));
 	}
